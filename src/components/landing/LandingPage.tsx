@@ -96,17 +96,17 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen bg-[#020408] text-white font-sans">
       {/* Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur shadow-md" : "bg-transparent"}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-slate-950/80 border-b border-amber-300/15 backdrop-blur-xl shadow-2xl" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center shadow-lg">
-                <i className="fa-solid fa-sparkles text-white text-sm"></i>
+              <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center shadow-lg shadow-amber-500/20">
+                <i className="fa-solid fa-sparkles text-slate-950 text-sm"></i>
               </div>
-              <span className={`text-xl font-black tracking-tight ${scrolled ? "text-indigo-900" : "text-white"}`}>
+              <span className="text-xl font-black tracking-tight text-gradient">
                 INVITIX
               </span>
             </div>
@@ -151,15 +151,15 @@ export default function LandingPage() {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden bg-white border-t shadow-lg">
+          <div className="md:hidden bg-slate-950/95 border-t border-white/10 shadow-2xl backdrop-blur-xl">
             <div className="px-4 py-4 flex flex-col gap-3">
               {["Fonctionnalités", "Tarifs", "FAQ"].map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="text-gray-700 font-medium py-2" onClick={() => setMenuOpen(false)}>
+                <a key={item} href={`#${item.toLowerCase()}`} className="text-slate-200 font-medium py-2" onClick={() => setMenuOpen(false)}>
                   {item}
                 </a>
               ))}
               <div className="flex flex-col gap-2 pt-2 border-t">
-                <Link href="/login" className="text-center px-4 py-2.5 border-2 border-indigo-900 text-indigo-900 font-semibold rounded-xl">
+                <Link href="/login" className="text-center px-4 py-2.5 border border-amber-300/50 text-amber-200 font-semibold rounded-xl">
                   Connexion
                 </Link>
                 <Link href="/register" className="text-center px-4 py-2.5 gradient-primary text-white font-semibold rounded-xl">
@@ -266,10 +266,10 @@ export default function LandingPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-100 text-violet-700 rounded-full text-sm font-semibold mb-4">
               <i className="fas fa-sparkles"></i> Fonctionnalités
             </div>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+            <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
               Tout ce dont vous avez besoin
             </h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
               Une suite complète d'outils pour gérer vos événements de A à Z
             </p>
           </div>
@@ -278,13 +278,13 @@ export default function LandingPage() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-amber-300/15 hover:border-amber-300/40 hover:-translate-y-1 transition-all duration-300 group"
               >
                 <div className={`w-12 h-12 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform`}>
                   <i className={`fas ${feature.icon} text-white text-lg`}></i>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{feature.desc}</p>
+                <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -292,7 +292,7 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section id="comment-ca-marche" className="py-24 bg-white">
+      <section id="comment-ca-marche" className="py-24 bg-slate-950/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">
