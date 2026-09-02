@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { users } from "@/db/schema-sqlite";
+import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { comparePassword, signToken } from "@/lib/auth";
 import { cookies } from "next/headers";

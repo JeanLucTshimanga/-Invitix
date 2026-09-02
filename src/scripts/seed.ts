@@ -1,5 +1,5 @@
 import { db } from "../db/index";
-import { users, organizations, events, guests, qrCodes, eventTables } from "../db/schema-sqlite";
+import { users, organizations, events, guests, qrCodes, eventTables } from "../db/schema";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 

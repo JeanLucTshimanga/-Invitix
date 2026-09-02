@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { db } from "@/db";
-import { users } from "@/db/schema-sqlite";
+import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const JWT_SECRET = process.env.JWT_SECRET || "invitix-secret-key-2024";

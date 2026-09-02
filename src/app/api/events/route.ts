@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { events, guests } from "@/db/schema-sqlite";
+import { events, guests } from "@/db/schema";
 import { eq, desc, sql, and } from "drizzle-orm";
 import { getCurrentUser } from "@/lib/auth";
 

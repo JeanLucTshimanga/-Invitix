@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { guests, qrCodes, eventTables } from "@/db/schema-sqlite";
+import { guests, qrCodes, eventTables } from "@/db/schema";
 import { eq, sql, and, ilike, or } from "drizzle-orm";
 import { getCurrentUser } from "@/lib/auth";
 import { generateInvitationCode } from "@/lib/auth";

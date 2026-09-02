@@ -1,30 +1,69 @@
 import {
-  sqliteTable,
+  pgTable,
   text,
+  varchar,
+  timestamp,
+  boolean,
   integer,
-  blob,
-} from "drizzle-orm/sqlite-core";
+  pgEnum,
+  uuid,
+  jsonb,
+} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
-// Enums (SQLite doesn't have native enums, we use text columns)
-export const userRoleEnum = ["super_admin", "organizer", "protocol"] as const;
-export const eventTypeEnum = ["wedding", "birthday", "conference", "ceremony", "graduation", "meeting", "other"] as const;
-export const guestCategoryEnum = ["family", "friends", "colleagues", "vip", "official", "other"] as const;
-export const rsvpStatusEnum = ["pending", "confirmed", "declined", "maybe"] as const;
-export const eventStatusEnum = ["draft", "published", "active", "completed", "cancelled"] as const;
-export const invitationStatusEnum = ["sent", "opened", "not_sent"] as const;
+// Enums
+export const userRoleEnum = pgEnum("user_role", [
+  "super_admin",
+  "organizer",
+  "protocol",
+]);
+export const eventTypeEnum = pgEnum("event_type", [
+  "wedding",
+  "birthday",
+  "conference",
+  "ceremony",
+  "graduation",
+  "meeting",
+  "other",
+]);
+export const guestCategoryEnum = pgEnum("guest_category", [
+  "family",
+  "friends",
+  "colleagues",
+  "vip",
+  "official",
+  "other",
+]);
+export const rsvpStatusEnum = pgEnum("rsvp_status", [
+  "pending",
+  "confirmed",
+  "declined",
+  "maybe",
+]);
+export const eventStatusEnum = pgEnum("event_status", [
+  "draft",
+  "published",
+  "active",
+  "completed",
+  "cancelled",
+]);
+export const invitationStatusEnum = pgEnum("invitation_status", [
+  "sent",
+  "opened",
+  "not_sent",
+]);
 
 // Organizations
-export const organizations = sqliteTable("organizations", {
-  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  name: text("name").notNull(),
+export const organizations = pgTable("organizations", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: varchar("name", { length: 255 }).notNull(),
   logo: text("logo"),
-  email: text("email"),
-  phone: text("phone"),
+  email: varchar("email", { length: 255 }),
+  phone: varchar("phone", { length: 50 }),
   address: text("address"),
-  website: text("website"),
-  createdAt: integer("created_at", { mode: 'timestamp' }).$defaultFn(() => new Date()),
-  updatedAt: integer("updated_at", { mode: 'timestamp' }).$defaultFn(() => new Date()),
+  website: varchar("website", { length: 255 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // Users
