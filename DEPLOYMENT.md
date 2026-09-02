@@ -1,76 +1,63 @@
 # Déploiement sur Vercel
 
 ## Prérequis
-1. Compte Vercel
-2. Base de données PostgreSQL (Supabase, Neon, ou autre)
-3. Repository GitHub
 
-## Étapes de déploiement
+- Un projet Vercel connecté au dépôt GitHub
+- Une base PostgreSQL accessible depuis Internet (Neon, Supabase, etc.)
+- Node.js 20 ou une version plus récente
 
-### 1. Préparer la base de données PostgreSQL
-- Créer une base de données PostgreSQL (Supabase ou Neon recommandé)
-- Récupérer l'URL de connexion : `postgresql://user:password@host:5432/dbname`
+## Variables d'environnement Vercel
 
-### 2. Configurer Vercel
-1. Connecter votre repository GitHub à Vercel
-2. Ajouter les variables d'environnement dans Vercel Dashboard :
+À définir dans **Settings > Environment Variables** pour `Production` (et
+éventuellement `Preview`) :
 
-```
+```env
 DATABASE_URL=postgresql://user:password@host:5432/dbname
-JWT_SECRET=ma-cle-secrete (minimum 32 caractères)
-NEXT_PUBLIC_APP_URL=https://votre-domaine.vercel.app
+JWT_SECRET=remplacer-par-une-cle-aleatoire-d-au-moins-32-caracteres
+NEXT_PUBLIC_APP_URL=https://invitix.vercel.app
 ```
 
-### 3. Exécuter les migrations
-Après le déploiement, exécuter les migrations Drizzle :
+Le fichier `.env.production` contient uniquement des valeurs d'exemple. Ne
+commitez jamais les identifiants réels de la base ou une clé JWT réelle.
+
+## Initialiser le schéma PostgreSQL
+
+Après avoir configuré `DATABASE_URL` localement ou dans l'environnement de
+déploiement, exécuter depuis la racine du projet :
 
 ```bash
-# Installer drizzle-kit globalement
-npm install -g drizzle-kit
-
-# Exécuter les migrations
 npx drizzle-kit push
 ```
 
-### 4. Seeder la base de données (optionnel)
-Pour créer les comptes de démonstration :
+Cette commande utilise `drizzle.config.ts` et `src/db/schema.ts`. Elle doit
+être exécutée avant le premier appel à l'API.
+
+Pour charger les comptes et données de démonstration :
 
 ```bash
-DATABASE_URL=votre-url-postgresql npx tsx src/scripts/seed.ts
+npx tsx src/scripts/seed.ts
 ```
 
-## Variables d'environnement requises
+## Déployer
 
-| Variable | Description | Exemple |
-|----------|-------------|---------|
-| DATABASE_URL | URL PostgreSQL | `postgresql://user:password@host:5432/dbname` |
-| JWT_SECRET | Clé secrète pour JWT | `ma-cle-secrete-tres-longue` |
-| NEXT_PUBLIC_APP_URL | URL de l'application | `https://invitix.vercel.app` |
+1. Importer le dépôt dans Vercel.
+2. Vérifier les trois variables d'environnement ci-dessus.
+3. Laisser Vercel utiliser `npm install` puis `npm run build`.
+4. Déployer et vérifier `https://invitix.vercel.app/api/health`.
 
-## Comptes de démonstration
-Après le seeding :
-- admin@invitix.com / admin123 (Super Admin)
-- organizer@invitix.com / demo123 (Organisateur)
-- protocol@invitix.com / demo123 (Protocole)
+`vercel.json` fournit les commandes standard Next.js et la région `cdg1`.
+
+## Vérifications locales
+
+```bash
+npm run typecheck
+npm run build
+```
 
 ## Dépannage
 
-### Erreur de connexion à la base de données
-- Vérifier que DATABASE_URL est correcte
-- Vérifier que la base de données est accessible depuis internet
-- Vérifier les pare-feux et les règles de sécurité
-
-### Erreur de build
-- Vérifier que toutes les dépendances sont installées
-- Vérifier la version de Node.js (>= 18)
-- Vérifier les logs de build dans Vercel Dashboard
-
-### Problèmes d'authentification
-- Vérifier que JWT_SECRET est défini
-- Vérifier que les cookies sont correctement configurés
-
-## Support
-Pour toute question, consulter la documentation :
-- [Documentation Vercel](https://vercel.com/docs)
-- [Documentation Drizzle ORM](https://orm.drizzle.team)
-- [Documentation Next.js](https://nextjs.org/docs)
+- **Connexion DB** : vérifier que `DATABASE_URL` est une URL PostgreSQL
+  complète et que la base autorise les connexions externes.
+- **JWT** : `JWT_SECRET` doit contenir au moins 32 caractères.
+- **Build** : consulter les logs du déploiement Vercel et confirmer que les
+  variables sont définies pour le bon environnement.

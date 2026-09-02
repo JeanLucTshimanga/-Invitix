@@ -52,7 +52,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-[#020408] overflow-hidden">
       {/* Sidebar overlay (mobile) */}
       {sidebarOpen && (
         <div
@@ -63,14 +63,14 @@ export default function DashboardShell({ children }: { children: React.ReactNode
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 gradient-primary flex flex-col transition-transform duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-slate-950/90 border-r border-amber-300/15 backdrop-blur-2xl flex flex-col transition-transform duration-300 lg:static lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Logo */}
         <div className="flex items-center gap-3 px-6 py-5 border-b border-white/10">
-          <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-            <i className="fas fa-sparkles text-white text-base"></i>
+          <div className="w-10 h-10 gradient-primary rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20">
+            <i className="fas fa-sparkles text-slate-950 text-base"></i>
           </div>
           <div>
             <div className="text-white font-black text-lg tracking-tight">INVITIX</div>
@@ -134,7 +134,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top navbar */}
-        <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 lg:px-6 flex-shrink-0 shadow-sm">
+        <header className="h-16 bg-slate-950/65 border-b border-white/10 backdrop-blur-xl flex items-center justify-between px-4 lg:px-6 flex-shrink-0">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -144,9 +144,9 @@ export default function DashboardShell({ children }: { children: React.ReactNode
             </button>
             {/* Breadcrumb */}
             <div className="hidden sm:flex items-center gap-2 text-sm text-gray-500">
-              <span className="font-semibold text-indigo-900">INVITIX</span>
-              <i className="fas fa-chevron-right text-xs text-gray-300"></i>
-              <span className="text-gray-600">{getPageTitle(pathname)}</span>
+              <span className="font-semibold text-amber-300">INVITIX</span>
+              <i className="fas fa-chevron-right text-xs text-slate-600"></i>
+              <span className="text-slate-300">{getPageTitle(pathname)}</span>
             </div>
           </div>
 
@@ -163,7 +163,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
             )}
 
             {/* Notifications */}
-            <button className="relative p-2 rounded-xl text-gray-500 hover:bg-gray-100 transition-colors">
+            <button className="relative p-2 rounded-xl text-slate-400 hover:bg-white/10 transition-colors">
               <i className="fas fa-bell text-lg"></i>
               {notifCount > 0 && (
                 <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full text-white text-xs flex items-center justify-center font-bold">

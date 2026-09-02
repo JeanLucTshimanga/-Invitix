@@ -5,7 +5,10 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-const JWT_SECRET = process.env.JWT_SECRET || "invitix-secret-key-2024";
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
+if (JWT_SECRET.length < 32) {
+  throw new Error("JWT_SECRET must be at least 32 characters");
+}
 const JWT_EXPIRY = "7d";
 
 export interface JwtPayload {
@@ -21,7 +24,25 @@ export function signToken(payload: JwtPayload): string {
 
 export function verifyToken(token: string): JwtPayload | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as JwtPayload;
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (
+      typeof decoded === "string" ||
+      typeof decoded.userId !== "string" ||
+      typeof decoded.email !== "string" ||
+      typeof decoded.role !== "string"
+    ) {
+      return null;
+    }
+
+    return {
+      userId: decoded.userId,
+      email: decoded.email,
+      role: decoded.role,
+      organizationId:
+        typeof decoded.organizationId === "string"
+          ? decoded.organizationId
+          : null,
+    };
   } catch {
     return null;
   }
